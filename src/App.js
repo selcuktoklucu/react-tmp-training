@@ -1,12 +1,15 @@
 import React, { Component } from 'react'
 import './App.scss'
 import { Route } from 'react-router-dom'
+
 import AuthenticatedRoute from './auth/components/AuthenticatedRoute'
 import Header from './header/Header'
 import SignUp from './auth/components/SignUp'
 import SignIn from './auth/components/SignIn'
 import SignOut from './auth/components/SignOut'
 import ChangePassword from './auth/components/ChangePassword'
+import Books from './auth/components/Books'
+import CreateBook from './auth/components/CreateBook'
 
 import Alert from 'react-bootstrap/Alert'
 
@@ -42,11 +45,17 @@ class App extends Component {
           </Alert>
         ))}
         <main className="container">
+          <Route exact path='/' render={() => (
+            <Books user={user} alert={this.alert} />
+          )} />
           <Route path='/sign-up' render={() => (
             <SignUp alert={this.alert} setUser={this.setUser} />
           )} />
           <Route path='/sign-in' render={() => (
             <SignIn alert={this.alert} setUser={this.setUser} />
+          )} />
+          <AuthenticatedRoute user={user} path='/create-book' render={() => (
+            <CreateBook alert={this.alert} user={user} />
           )} />
           <AuthenticatedRoute user={user} path='/sign-out' render={() => (
             <SignOut alert={this.alert} clearUser={this.clearUser} user={user} />
